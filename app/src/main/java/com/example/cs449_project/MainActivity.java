@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        //when selecting an item in the spinner
+        //when selecting an item in the spinner,
         //if the first item is selected (...) then no message will appear
         //but if any other item is selected, the message: "Selected: " (your item) will appear
         //the first entry in the spinner is the default/unpickable option

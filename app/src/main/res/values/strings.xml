@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CS449-Project</string>
+    <string-array name="scales_array">
+        <item>...</item>
+        <item>Major</item>
+        <item>Minor</item>
+</string-array>
 </resources>

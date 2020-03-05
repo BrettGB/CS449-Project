@@ -5,4 +5,14 @@
         <item>Major</item>
         <item>Minor</item>
 </string-array>
+    <string-array name="keys_array">
+        <item>...</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>A</item>
+        <item>B</item>
+    </string-array>
 </resources>

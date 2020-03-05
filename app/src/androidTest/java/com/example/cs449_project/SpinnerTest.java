@@ -39,18 +39,33 @@ public class SpinnerTest {
         assertEquals("com.example.cs449_project", appContext.getPackageName());
     }
 
-    //tests to make sure that each item in the spinner is an item in the spinner's array
+    //tests to make sure that each item in the scale spinner is an item in the scale spinner's array
     //with which it was initialized
-    //the for loop goes through each entry in the spinner, and then checks
+    //the for loop goes through each entry in the scale spinner, and then checks
     //it with the scales_array to make sure it is a valid entry
     @Test
-    public void iterateSpinnerItems(){
+    public void iterateScaleItems(){
         String[] myArray = mActivityRule.getActivity().getResources().getStringArray(R.array.scales_array);
         int size = myArray.length;
         for (int i=0; i<size; i++){
             onView(withId(R.id.scaleSelection)).perform(click());
             onData(is(myArray[i])).perform(click());
             onView(withId(R.id.scaleSelection)).check(matches(withSpinnerText(containsString(myArray[i]))));
+        }
+    }
+
+    //tests to make sure that each item in the key spinner is an item in the key spinner's array
+    //with which it was initialized
+    //the for loop goes through each entry in the key spinner, and then checks
+    //it with the keys_array to make sure it is a valid entry
+    @Test
+    public void iterateKeyItems(){
+        String[] myArray = mActivityRule.getActivity().getResources().getStringArray(R.array.keys_array);
+        int size = myArray.length;
+        for (int i=0; i<size; i++){
+            onView(withId(R.id.keySelection)).perform(click());
+            onData(is(myArray[i])).perform(click());
+            onView(withId(R.id.keySelection)).check(matches(withSpinnerText(containsString(myArray[i]))));
         }
     }
 }

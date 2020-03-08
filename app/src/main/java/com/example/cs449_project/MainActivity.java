@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.cs449_project.ScaleCreationAlgorithm;
 
@@ -19,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
     Spinner scaleSpinner;
     Spinner keySpinner;
     Button submitButton;
+    TextView theScale;
+    String scale;
+    String key;
+    String[] finishedScale;
     boolean scaleSelected = false;
     boolean keySelected = false;
     String[] musicNotes = {"B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B",
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         submitButton = findViewById(R.id.submitButton);
         submitButton.setVisibility(View.INVISIBLE);
+        theScale = findViewById(R.id.theProduct);
+        theScale.setVisibility(View.INVISIBLE);
 
         //
         //Scale Selector Spinner
@@ -53,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    String item = parent.getItemAtPosition(position).toString();
-                    Toast.makeText(parent.getContext(), "Scale Selected: " + item, Toast.LENGTH_LONG).show();
+                    scale = parent.getItemAtPosition(position).toString();
+                    Toast.makeText(parent.getContext(), "Scale Selected: " + scale, Toast.LENGTH_LONG).show();
                     scaleSelected = true;
 
-                    if(scaleSelected && keySelected)
+                    if(keySelected)
                         submitButton.setVisibility(View.VISIBLE);
                     else
                         submitButton.setVisibility(View.INVISIBLE);
@@ -97,11 +104,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    String item = parent.getItemAtPosition(position).toString();
-                    Toast.makeText(parent.getContext(), "Key Selected: " + item, Toast.LENGTH_LONG).show();
+                    key = parent.getItemAtPosition(position).toString();
+                    Toast.makeText(parent.getContext(), "Key Selected: " + key, Toast.LENGTH_LONG).show();
                     keySelected = true;
 
-                    if(scaleSelected && keySelected)
+                    if(scaleSelected)
                         submitButton.setVisibility(View.VISIBLE);
                     else
                         submitButton.setVisibility(View.INVISIBLE);
@@ -126,10 +133,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //if (scaleSelected && keySelected){
-                    Toast.makeText(getApplicationContext(), "Submit now Available", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Submit now Available", Toast.LENGTH_LONG).show();
                  //}
+
+                ScaleCreationAlgorithm theCreation;
+                theCreation = new ScaleCreationAlgorithm();
+                finishedScale = theCreation.scaleCreator(scale, key);
+
+                StringBuilder temp = new StringBuilder();
+                int size = finishedScale.length;
+                boolean appended = false;
+
+                for(int i = 0; i < size; ++i){
+                    if(appended && (i < 7)) {
+                        temp.append(' ');
+                        temp.append(' ');
+                    }
+                    appended = true;
+                    temp.append(finishedScale[i]);
+                }
+
+                theScale.setText(temp.toString());
+
+                theScale.setVisibility(View.VISIBLE);
             }
         });
+
+
 
     }
 }

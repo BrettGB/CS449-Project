@@ -2,6 +2,7 @@ package com.example.cs449_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
     Spinner scaleSpinner;
     Spinner keySpinner;
+    Spinner optionsSpinner;
     Button submitButton;
+    Button homeButton;
     TextView theScale;
     String scale;
     String key;
@@ -36,8 +39,38 @@ public class MainActivity extends AppCompatActivity {
 
         submitButton = findViewById(R.id.submitButton);
         submitButton.setVisibility(View.INVISIBLE);
+        homeButton = findViewById(R.id.homeButton);
         theScale = findViewById(R.id.theProduct);
         theScale.setVisibility(View.INVISIBLE);
+        optionsSpinner = findViewById(R.id.optionsSpinner);
+
+        ArrayAdapter<CharSequence> optionsAdapter;
+        optionsAdapter = ArrayAdapter.createFromResource(this, R.array.options_array, android.R.layout.simple_spinner_item);
+        optionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        optionsSpinner.setAdapter(optionsAdapter);
+
+        optionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (parent.getItemAtPosition(position).toString().equals("Home")){
+                    Intent homeScreen = new Intent(getApplicationContext(), MainActivity.class);
+                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(homeScreen);
+                }
+
+                else if (parent.getItemAtPosition(position).toString().equals("Info")){
+                    Intent infoScreen = new Intent(getApplicationContext(), InfoActivity.class);
+                    infoScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(infoScreen);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         //
         //Scale Selector Spinner
@@ -159,6 +192,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(getApplicationContext(), MainActivity.class);
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(home);
+            }
+        });
 
 
     }
